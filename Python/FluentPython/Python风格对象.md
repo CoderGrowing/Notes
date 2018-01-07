@@ -1,0 +1,72 @@
+## 符合Python风格的对象
+
+本文是《流畅的Python》第九章笔记。
+
+#### 鸭子类型
+
+Python实现多态靠的不是继承，而是用"鸭子类型(duck typing)"来实现的。维基百科这样解释鸭子类型：
+
+> 在[程序设计](https://www.wikiwand.com/zh-hans/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1)中，**鸭子类型**（英语：**duck typing**）是[动态类型](https://www.wikiwand.com/zh-hans/%E9%A1%9E%E5%9E%8B%E7%B3%BB%E7%B5%B1)的一种风格。在这种风格中，一个对象有效的语义，不是由继承自特定的类或实现特定的接口，而是由"当前[方法](https://www.wikiwand.com/zh-hans/%E6%96%B9%E6%B3%95_(%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8))和属性的集合"决定。
+>
+> “当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子，那么这只鸟就可以被称为鸭子。”
+
+比如我们自己实现了一个类，这个类是序列么？我们不需要检查它是不是继承了`Sequence`类，只需要看它有没有实现序列协议，即`__len__`方法和`__getitem__`方法即可。
+
+#### 对象表示：`repr`和`str`
+
+stackoverflow上有一个问题就是关于这两个方法的区别的：[Difference between __str__ and __repr__ in Python](https://stackoverflow.com/questions/1436703/difference-between-str-and-repr-in-python)
+
+其实这两种方法的区别总结起来就是一句话：`repr`是给开发者看的，`str`是给用户看的。也就是说，`repr`方法注重的是明确，清晰，方便调试；`str`方法注重的是可读性，能让用户理解。
+
+#### classmethod和staticmethod
+
+这个问题的探讨在知乎上有很不错的回答：[Python 中的 classmethod 和 staticmethod 有什么具体用途？](https://www.zhihu.com/question/20021164)
+
+staticmethod其实更接近于普通函数，它和Java中的static关键字差不多，可以让方法在类不初始化的情况下调用，它只是在类中定义了而不是在模块级定义了而已。
+
+而classmethod是类方法。我们知道在Python中方法的第一个参数是self，即对象本身。但classmethod的第一个参数为cls，即类本身。
+
+#### Python私有属性和受保护的属性
+
+在Java中有public、protect以及private三个关键词来区分类属性和方法的公开程度。但是Python中并没有类似的关键字，而是采用了另外的机制来实现类似的功能。
+
+这种机制就是"名称改写(name mangling)"。
+
+```python
+class klass:
+    def __init__(self, x):
+        self.__x = x
+
+k = klass(1)
+k.__x    # AttributeError: 'klass' object has no attribute '__x'
+```
+
+以双下划线开头的属性会被Python认为是私有的属性，限制外部的访问。但Python只是提供了一种安全措施，并没有严格的禁止访问私有属性。如果你一定要访问它照样可以做到：
+
+```python
+k._klass__x    # 1
+```
+
+Python会把私有属性进行名称改写，在属性名前边加上下划线和类名。
+
+有时我们还会碰到单个下划线开头的属性，如`self._x`。这是一种约定，这样命名的属性是"受保护"的属性，其他类不应该访问。但Python解释器并不会对这种名称做额外的处理。(导入模块时除外，from XX import *时不会带入带有前导下划线的属性)。
+
+#### `__slots__`属性
+
+Python会在各个 实例的`__dict__`属性里存储实例的属性，而看名字就是到这个属性时字典的结构。而字典的背后是散列表，比较消耗内存。如果有上百万个实例的话，利用`__slots__`属性可以节省内存。
+
+方法是在类中定义`__slots__`属性：
+
+```python
+class Myclass:
+    __slots__ = ('attr1', 'attr2')
+```
+
+`__slots__`属性的值必须为一个可迭代对象，里面存储所有的实例属性。这样相当于告诉解释器：类的所有实例属性都在这了！所以定义了`__slots__`属性后，实例将无法添加其他的属性。
+
+注意：
+
+1. `__slots__`是用于节省内存的！不要用来限制添加属性。
+2. 用户自定义的对有`__weakref__`属性，如果添加了`__slots__`属性还想支持弱引用的话，需要将其添加进去
+3. 每个子类都要定义`__slots__`属性，因为编译器会忽略继承的该属性。
+4. 处理特别多实例时才建议用该属性(几百万个)
