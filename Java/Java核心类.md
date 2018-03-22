@@ -55,7 +55,7 @@ StringBuilder类有4中构造器，分别为：无参、`StringBuilder(CharSeque
 
 ### 包装类型
 
-Java中的基本类型（byte,int, char, short, long, boolean, double, float)并不是对象。而我们经常会用到基本类型和对象的互相转换，由此就有了基本类型的包装类。将每种基本类型首字母大写即是包装类型的类名（Integer除外）。下面拿`java.lang.Integer`为例讲解这几个包装类型。
+Java中的基本类型（byte,int, char, short, long, boolean, double, float)并不是对象。而我们经常会用到基本类型和对象的互相转换，由此就有了基本类型的包装类。将每种基本类型首字母大写即是包装类型的类名（Integer和Character除外）。下面拿`java.lang.Integer`为例讲解这几个包装类型。
 
 **java.lang.Integer**
 
@@ -64,4 +64,36 @@ Integer类有两个构造器，分别传入int型和String类型，将其转换�
 Integer具有无参的`byteValue`、`doubleValue`、`floatValue`、`intValue`、`longValue`和`shortValue`方法，将所包装的值转化为对应的基本类型。
 
 最后，Integer类还有一个静态方法`parseInt()`，将String解析为int。`public static int parseInt(String string)`。
+
+**java.lang.Boolean**
+
+该类同样有两个构造器，分别从boolean类型和String类型构造一个Boolean对象：
+
+`public Boolean(boolean value)`和`public Boolean(String value)`。
+
+将Boolean类型转化为boolean类型使用`booleanValue()`方法：`public boolean booleanValue()`。
+
+**java.lang.Character**
+
+该类只有一个构造器：`public Character(char value)`。
+
+Character -> char：`public char charValue()`。
+
+判断参数是否为数字：`public static boolean isDigit(char ch)`。
+
+### 数组
+
+数组是一种特殊的Java对象，创建数组时不会有类被实例化。
+
+**声明数组**
+
+`type[] arrayName;`或者`type arrayName[] `（通常用第一种方法）。
+
+声明并不会分配空间，只有利用new关键字指定创建大小时数组才会被分配空间。声明的同时可以立即初始化：
+
+`int [] nums = new int[10];`。
+
+需要注意的是，同C语言不同，访问超出范围的数组成员会抛出异常。
+
+
 
