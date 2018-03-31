@@ -203,3 +203,45 @@ SQL提供了五个固有聚集函数：
 - 总和：sum
 - 计数：count
 
+
+sum和avg的输入必须为数字，其他运算符还可以作用在其他类型集合上，如字符串。
+
+```sql
+select avg(salary)
+from instructor
+where dept_name = 'Comp. Sci.'
+```
+
+#### 4.1 分组聚集
+
+SQL中可以使用group by子句进行分组聚集，将输出数据按照指定的规则分组。
+
+```sql
+select dept_name, avg(salary)
+from instructor
+group by dept_name
+```
+
+需要注意的是，出现在select语句中但是没有被聚集的属性只能是出现在group by子句中的属性。例如下面的例子就是错误的：
+
+```sql
+select dept_name, ID, avg(salary)
+from instructor
+group by dept_name
+```
+
+ID出现在了select子句中，但却没有被聚集且非group by子句内容，所以此条查询是错误的。
+
+#### 4.2 having子句
+
+having子句中的谓词在形成分组后才起作用，因此可以使用聚集函数。
+
+```sql
+select dept_name avg(salary) as avg_salary
+from instrucor
+group by dept_name
+having avg(salary) > 42000
+```
+
+### 5. 其他内容
+
