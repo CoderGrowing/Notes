@@ -1,4 +1,4 @@
-# HashMap
+# HashMap实现原理
 
 Java为映射关系定义了一个java.util.Map接口，它的常用实现类有四个，分别为：HashMap、HashTable、LinkedHashMap和TreeMap。
 

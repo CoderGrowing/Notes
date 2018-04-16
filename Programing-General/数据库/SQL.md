@@ -7,6 +7,8 @@
 - int：整数类型，全称integer
 - smallint：小整数类型
 - numeric(p, d)：定点数，精度由用户指定，p位数字加上d位小数
+- real, double  precision：浮点数与双精度浮点数，精度与机器有关
+- float(n)：精度至少为n的浮点数
 
 ### 2. 基本模式定义
 
@@ -30,6 +32,12 @@ create table course
     foreign key(dept_name) references department);
 ```
 
+`create table`命令支持的完整性约束：
+
+- primary key(A1, A2, ... Am)：primary key表述属性A1, A2,... Am构成了关系的主键。主键的值必须非空而且唯一
+- foreign key(A1, A2... Am)：references：外键，表示关系在属性(A1, A2, ... Am)上的取值必须对应于关系s中某元组在主键属性上的取值
+- not null：不允许空值
+
 #### 2.2 插入数据
 
 ```sql
@@ -47,6 +55,17 @@ drop table department;    --: 删除department关系，同时删除模式
 
 ```sql
 alter table department add floors int    --: 在关系department中增加属性floors，域为int
+```
+
+#### 2.5 更新
+
+```sql
+update instructor set salary = salary * 1.05;
+```
+
+```sql
+update instructor set salary = salary * 1.05
+where salary < 7000;
 ```
 
 ### 3. 查询
@@ -242,6 +261,3 @@ from instrucor
 group by dept_name
 having avg(salary) > 42000
 ```
-
-### 5. 其他内容
-

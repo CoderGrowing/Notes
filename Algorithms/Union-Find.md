@@ -17,7 +17,7 @@
   `union`:连接两个元素 
   `connected`:判断两个元素是否连通
   实例如下：
-  ![](../Picture/dynamic-connectivity.jpg)
+  ![](Picture/dynamic-connectivity.jpg)
 2. 连通的性质
  - 任一元素自身是连通的，即p和p是连通的
  - 若p和q是连通的，则q和p也是连通的
@@ -48,7 +48,7 @@ public class UF {
  - 判断是否连通： 数组中值相同的元素连通，否则不连通
 
 例子如下：
-![](../Picture/quick-find.jpg)
+![](Picture/quick-find.jpg)
 
 代码实现如下： 
 
@@ -98,7 +98,7 @@ public class QuickFindUF  {
 Quick-Union算法仍然使用数组来存储数据，但在这数组数据所代表的含义有所不同。
 
 现在将所有的数据元素看做一个树，数组中存储对应位置数据元素的根节点的位置。如下图所示：
-![](../Picture/union-find-1.jpg)
+![](Picture/union-find-1.jpg)
 
 **判断连通与否**
 
@@ -112,11 +112,11 @@ Quick-Union算法仍然使用数组来存储数据，但在这数组数据所代
 
 例如合并元素4和3，union(4, 3)
 
-![](../Picture/union-find-2.jpg)
+![](Picture/union-find-2.jpg)
 
 继续合并元素3和8， union(3,8)
 
-![](../Picture/union-find-3.jpg)
+![](Picture/union-find-3.jpg)
 
 如此，即可很方便的进行合并操作，所以这个算法的名字叫做“快速联合”。
 
@@ -168,17 +168,17 @@ quick-union算法的主要问题在于我们构建的树太"高"了，大大的�
 
 加权的quick-union算法仍然采取相同的措施构建树：执行联合操作时将元素作为子节点挂在父节点上。但我们做一个限制：联合时保证"小树"一定是挂在"大树"的下边。
 
-![](../Picture/weighted-quick-union-1.jpg)
+![](Picture/weighted-quick-union-1.jpg)
 
 如上图所示，现在我们执行union(3, 8)操作，本来应该是将3挂在8的下边，但现在因为4-3树比8大，所以我们不管参数的顺序而将8挂在3下边：
 
-![](../Picture/weighted-quick-union-2.jpg)
+![](Picture/weighted-quick-union-2.jpg)
 
 这样我们就可以保证在有大量节点的情况下树仍能保持一个较低的状态，从而提升查找速度。
 
 quick-union和加权quick-union算法将100个节点合并88次的比较：
 
-![](../Picture/weighted-quick-union-3.jpg)
+![](Picture/weighted-quick-union-3.jpg)
 
 实现这个算法其实很简单：在执行联合操作前检查下树的大小就行。我们另外维护一个数组，存储树的大小：
 
