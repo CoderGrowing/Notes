@@ -211,7 +211,7 @@ XML为构造器注入提供了两种方式：
       c:_0-ref="compactDisc" />
 ```
 
-#### 4.2 装配字面量
+**装配字面量**
 
 ```java
 package soundsystem;
@@ -247,7 +247,7 @@ public class BlankDisc implements CompactDisc {
 
 `c:_title`、`c_artist`同样可以用`c:_0`和`c_1`来替换。
 
-#### 4.3 设置属性
+#### 4.2 设置属性
 
 依赖注入除了使用构造器注入之外还可以使用setter方法注入。对于可选性的依赖，更应该选择使用setter方法注入的形式。
 
@@ -283,7 +283,19 @@ property元素为属性的setter方法提供的功能和constructor-arg元素为
       p:compactDisc-ref="compactDisc" />
 ```
 
+**装配字面量**
 
+借助`<property>`元素的value属性可以装配字面量：
+
+```xml
+<property name="artist" value="The Beatles" />
+<property name="tracks">
+    <list>
+        <value> Sgt. Pepper's Lonely Hearts Club Band </value>
+        <value>Another track.</value>
+    </list>
+</property>
+```
 
 
 
