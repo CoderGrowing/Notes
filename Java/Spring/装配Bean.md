@@ -1,8 +1,18 @@
-# 装配Bean
+## 装配Bean
 
-传统的创建对象，依靠对象之间相关联来实现功能的代码通常会结构很复杂也难以重用。Spring采用了另一种方法来调和对象间的合作，即控制反转（依赖注入）。对象无需自己查找和创建与其关联的其他对象，相反，容器复杂把需要相互协作的对象引用赋予各个对象。
+不同于重量级的EJB（企业级JavaBean，Enterprise JavaBean），Spring是基于POJO（Plain Ordinary Java Object，简单Java对象）的。
 
-创建对象之间协作关系的行为叫做**装配（wiring）**，这也是依赖注入的本质。
+Spring通过配置文件或注解来描述类和类之间的依赖关系，**自动完成类的初始化和依赖注入工作**。
+
+```xml
+<bean id="quest" class="SomeQuest" />
+<bean id="knight" class="BraveKnight"
+      p:quest-ref="quest" />
+```
+
+通过XML的配置，我们告知了Spring类之间的依赖关系，创建对象之间协作关系的行为叫做**装配（wiring）**，这也是依赖注入的本质。如此Spring便可以通过解析XML文件来完成类之间的依赖的自动装配。
+
+Spring提供了两种注入依赖的配置供我们使用，即基于注解的配置和基于XML的配置。而依赖注入的方式有三种，分别是**构造方法注入**（constructor injection）、**setter方法注入**（setter injection）以及**接口注入**（interface injection）。对于这三种方式我们分别来看下如何使用Spring来进行依赖注入。
 
 ### 1. 可选的装配方案
 
@@ -14,7 +24,7 @@ Spring主要提供了三种装配机制：
 
 推荐尽可能的使用自动装配机制，必须要显示配置时，尽量采用Java配置的方式。
 
-### 2. 自动化装配
+#### 1.1 自动化装配
 
 Spring从两个角度实现自动化装配：
 
@@ -38,7 +48,7 @@ CD的具体实现
 ```java
 package soundsystem;
 
-@Component 
+@Component     // 通过注解将类声明为组件
 public class SgtPeppers implements CompactDisc {
     private String title = "Sgt. Pepper's Lonely Hearts Club Band";
     private String artist = "The Beatles";
@@ -50,7 +60,7 @@ public class SgtPeppers implements CompactDisc {
 }
 ```
 
-#### 2.1 启用组件扫描
+##### 启用组件扫描
 
 Spring默认是不会扫描组件的，需要在配置类中将其启用：
 
@@ -68,7 +78,7 @@ public class CDPlayerConfig {}
 <context:component-scan base-package="soundsystem" />
 ```
 
-#### 2.2 为扫描的bean命名
+##### 为扫描的bean命名
 
 Spring应用上下文中所有的bean都会有一个给定的ID。如果我们不显示指定的话，它会将“类名的首字母小写”后的名称作为bean的ID。
 
@@ -79,7 +89,7 @@ Spring应用上下文中所有的bean都会有一个给定的ID。如果我们�
 public class SgtPeppers implements CompactDisc {
 ```
 
-#### 2.3 指定组件扫描的包
+##### 指定组件扫描的包
 
 默认规则下组件扫描会以配置类所在的包作为基础包来扫描组件。如果需要将配置类放在单独的包中就需要指定组件扫描的规则了：
 
@@ -88,7 +98,7 @@ public class SgtPeppers implements CompactDisc {
 @ComponentScan("soundsystem")
 ```
 
-#### 2.4 通过为bean添加注解实现自动装配
+##### 通过为bean添加注解实现自动装配
 
 ```java
 public interface MediaPlayer {
@@ -126,7 +136,7 @@ public void setCd(CompactDisc compactDisc) {
 
 注：@Autowired可以和@Inject互换。
 
-### 3. 使用Java进行装配
+#### 1.2  使用Java进行装配
 
 让我们重新开始。
 
@@ -137,9 +147,9 @@ package soundsystem;
 public class CDPlayerConfig {}
 ```
 
-我们去掉了@ComponentScan注解，换用Java的显示装配。
+我们去掉了@ComponentScan注解，换用Java的显式装配。
 
-#### 3.1 声明简单地bean
+##### 声明简单地bean
 
 在JavaConfig中声明Bean：
 
@@ -150,7 +160,7 @@ public CompactDisc sgtPeppers() {
 }
 ```
 
-#### 3.2 利用JavaConfig实现注入
+##### 利用JavaConfig实现注入
 
 当需要依赖其他bean的时候可以用JavaConfig实现依赖注入：
 
@@ -170,7 +180,7 @@ public CDPlayer cdPlayer(CompactDisc compactDisc) {
 }
 ```
 
-### 4. 使用XML进行装配
+#### 1.3 使用XML进行装配
 
 使用XML声明bean时类似利用Java配置，需要用到`<bean>`元素：
 
@@ -178,7 +188,7 @@ public CDPlayer cdPlayer(CompactDisc compactDisc) {
 <bean id="compactDisc" class="soudsystem.SgtPeppers" />
 ```
 
-#### 4.1 使用构造器注入
+##### 使用构造器注入
 
 XML为构造器注入提供了两种方式：
 
@@ -247,7 +257,7 @@ public class BlankDisc implements CompactDisc {
 
 `c:_title`、`c_artist`同样可以用`c:_0`和`c_1`来替换。
 
-#### 4.2 设置属性
+##### 设置属性
 
 依赖注入除了使用构造器注入之外还可以使用setter方法注入。对于可选性的依赖，更应该选择使用setter方法注入的形式。
 
@@ -297,5 +307,8 @@ property元素为属性的setter方法提供的功能和constructor-arg元素为
 </property>
 ```
 
+### 2. 高级装配
 
+### 3. Bean的作用域
 
+默认情况下的

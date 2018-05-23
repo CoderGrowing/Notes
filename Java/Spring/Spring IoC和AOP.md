@@ -15,46 +15,9 @@ Spring可以做很多事情。但归根结底，Spring最根本的使命只有�
 
 ### 2. IoC
 
-IoC即Inversion of Control，中文译作“控制反转”，也叫作依赖注入（Dependency Injection）。
 
-既然叫做“控制反转”，那么是反转了什么呢？其实反转的就是**依赖对象的创建方式**。正常情况下我们自己回去利用`new`关键字新建对象。但在IoC的设计理念下，这个新建过程转交给了Spring的容器，即我们需要对象时，只需通知容器一下即可获得我们所需的对象，而具体的新建过程由容器操控。
 
-那这个“通知容器”的动作是怎么实现的呢？有三种依赖注入的方式，即构造方法注入（constructor
-injection）、setter方法注入（setter injection）以及接口注入（interface injection）。
 
-先看一个耦合的骑士探险的例子：
-
-```java
-public class DamselRescuingKnight implements Knight {
-    private RescueDamselQuest quest;
-
-    public DamselRescuingKnight() {
-    	this.quest = new RescueDamselQuest();
-    }
-    public void embarkOnQuest() {
-    	quest.embark();
-    }
-}
-```
-
-DamselRescuingKnight在构造函数中自行创建了RescueDamselQuest，它们两个紧紧地耦合在了一起。如此固然能够发挥作用，但也同样限制了骑士能做的事情。
-
-**耦合具有两面性。**一方面耦合的代码难以测试、难以理解、难以复用，但一定程度的耦合又是必须的——完全不耦合的代码什么也做不了。尽管如此，我们应该最大程度的解耦合。下面是一个例子：
-
-```java
-public class BraveKnight implements Knight {
-    private Quest quest;
-
-    public BraveKnight(Quest quest) {
-    	this.quest = quest;
-    }
-    public void embarkOnQuest() {
-    	quest.embark();
-    }
-}
-```
-
-不同于之前的DamselRescuingKnight，BraveKnight在构造时将探险任务作为参数传入，从而能够完成更多的任务。这就是依赖注入的方式之一，构造器注入。
 
 ### 3. AOP
 

@@ -1,28 +1,18 @@
-# Java基础
+## Java基础
 
-#### 基本数据类型
+### 基本数据类型
 
-int、float、double、char、byte和boolean
+#### 八种基本数据类型
 
-#### 输入数据
+Java共有8中基本数据类型，分别为：
 
-Java的输入输出真是我见过的编程语言中最复杂的╮(╯▽╰)╭
+byte（1字节）、short（2字节）、int（4字节）、long（8字节）
 
-```java
-import java.util.Scanner;
+float（4字节）、double（8字节）
 
-public class InputDemo {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+char（2字节）和boolean。
 
-        System.out.println("Please input a number: ");
-        double in = input.nextDouble();
-        System.out.println("The number is: " + in);
-    }
-}
-```
-
-#### 基本类型默认值
+#### 基本数据类型默认值
 
 当基本类型的变量作为类的成员时，即使不进行初始化Java也会给它一个初始值。但这个规则并不适用于局部变量。
 
@@ -37,22 +27,13 @@ public class InputDemo {
 | float    | 0.0f           |
 | double   | 0.0d           |
 
-#### 作用域
+#### 几个特殊值
 
-Java作用域由花括号来确定。需要注意的是，Java不允许将较大作用域的变量"隐藏"起来从而定义同名变量
+Java中的浮点数运算遵循IEEE 754标准，有三个表示溢出和出错情况的三个特殊的浮点数值：
 
-```java
-{
-    int x = 12;
-    {
-        int x = 9;    // 不合法！
-    }
-}
-```
-
-而对于对象而言，只要是由new创建对象，需要时会一直保留下去。Java靠垃圾回收器来辨别回收不再需要的对象。
-
-#### 流程控制
+- Double.POSITIVE_INFINITY：正无穷
+- Double.NAGATIVE_INFINITY：负无穷
+- Double.NaN：Not a Number，不是一个数值需要注意的是，NaN != NaN，检测一个值是否是NaN需要使用Double.isNaN方法。
 
 **for-each**
 
@@ -68,7 +49,7 @@ for (int i: t) {
 
 **label**
 
-标签机制类似于goto语句，它可以跳出多层循环直接到达目的代码处。
+标签机制类似于goto语句，它可以跳出层循环直接到达目的代码处。
 
 ```java
 labeldemo:

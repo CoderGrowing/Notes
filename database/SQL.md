@@ -68,6 +68,13 @@ update instructor set salary = salary * 1.05
 where salary < 7000;
 ```
 
+```sql
+update instructor
+set salary = case
+	when salary <= 10000 then salary * 1.05
+	else salary * 1.03
+```
+
 ### 3. 查询
 
 查询的基本结构由select、from和where三个字句构成。
@@ -79,6 +86,18 @@ where salary < 7000;
 ```sql
 select name from instructor;       --: 在关系instructor中找出所有教师的名字
 select distinct name from instructor    --: 找出所有名字，去除重复
+```
+
+SQL查询结果默认保留重复的值，如果想要指定删除重复，使用关键字`distinct`：
+
+```sql
+select distinct dept_name from instrucor;
+```
+
+使用关键字`all`显式指明不去除重复：
+
+```sql
+select all dept_name from instrtuctor
 ```
 
 #### 3.2 多关系查询
@@ -107,7 +126,7 @@ from instructor, teachers
 where teachers.ID = instructor.ID
 ```
 
-这种匹配的条件非常常见，为了简化工作，SQL支持一种被称为自然连接的运算。自然连接只考虑那些在两个关系模式中都出现的属性上取值相同的元组对。利用自然连接上述SQL语句可以改写为：
+这种匹配的条件非常常见，为了简化工作，SQL支持一种被称为**自然连接**的运算。自然连接只考虑那些在两个关系模式中都出现的属性上取值相同的元组对。利用自然连接上述SQL语句可以改写为：
 
 ```sql
 select name course_id
@@ -180,7 +199,7 @@ like 'ab\%cd%' escape '\'   --;定义\为转义字符
 
 #### 3.3 显示顺序
 
-利用order by子句可以让查询结果中元组按照顺序显示。默认为升序排序，如果需要制定顺序，desc表示降序，asc表示升序。
+利用order by子句可以让查询结果中元组按照顺序显示。默认为升序排序，如果需要指定顺序，desc表示降序，asc表示升序。
 
 ```sql
 select *
@@ -261,3 +280,4 @@ from instrucor
 group by dept_name
 having avg(salary) > 42000
 ```
+
