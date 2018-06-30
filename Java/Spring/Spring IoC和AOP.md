@@ -1,17 +1,17 @@
-# Spring IoC和AOP
+# Spring IoC 和 AOP
 
-### 1. 为何Spring
+### 1. 为何 Spring
 
-Spring可以做很多事情。但归根结底，Spring最根本的使命只有一个：**简化Java开发**。
+Spring 可以做很多事情。但归根结底，Spring 最根本的使命只有一个：**简化 Java 开发**。
 
-不同于重量级的EJB（企业级JavaBean，Enterprise JavaBean），Spring是基于POJO（Plain Ordinary Java Object，简单Java对象）的。那么Spring是如何做到降低开发复杂型的呢？
+不同于重量级的 EJB（企业级 JavaBean，Enterprise JavaBean），Spring 是基于 POJO（Plain Ordinary Java Object，简单 Java 对象）的。那么 Spring 是如何做到降低开发复杂型的呢？
 
-- 基于POJO的轻量级和最小侵入式编程
+- 基于 POJO 的轻量级和最小侵入式编程
 - 通过依赖注入和面向接口实现松耦合
 - 基于切面和惯例进行声明式编程
 - 通过切面和模板减少样板式代码
 
-或许Spring中最重要的概念就是IoC（控制反转）和AOP（面向切面编程）。下面我们就来看看这两个重要的思想。
+或许 Spring 中最重要的概念就是 IoC（控制反转）和 AOP（面向切面编程）。下面我们就来看看这两个重要的思想。
 
 ### 2. IoC
 
@@ -21,15 +21,15 @@ Spring可以做很多事情。但归根结底，Spring最根本的使命只有�
 
 ### 3. AOP
 
-AOP即Aspect Oriented Programming，面向切面编程。
+AOP 即 Aspect Oriented Programming，面向切面编程。
 
-#### 3.1 AOP术语
+#### 3.1 AOP 术语
 
 **通知（Advice）**
 
 切面的工作被称为通知。通知定义了切面是什么以及何时使用。除了描述切面要完成的工作之外，通知还解决了何时执行这个工作的问题。
 
-Spring内置了五种类型的通知：
+Spring 内置了五种类型的通知：
 
 - 前置通知（@Before）：在目标方法被调用之前调用通知功能
 - 后置通知（@After）：在目标方法被调用之后（不关心方法的输出是什么）
@@ -58,8 +58,8 @@ Spring内置了五种类型的通知：
 织入是把切面应用到目标对象并创建新的代理对象的过程。切面在指定的连接点被织入到目标对象中。在目标对象的生命周期中有多个点可以进行织入：
 
 - 编译器：切面在目标类编译时被织入，需要特殊的编译器
-- 类加载期：切面在目标类加载到JVM时被织入，需要特殊的类加载器
-- 运行期：Spring AOP就是以这种方式织入切面的
+- 类加载期：切面在目标类加载到 JVM 时被织入，需要特殊的类加载器
+- 运行期：Spring AOP 就是以这种方式织入切面的
 
 
 

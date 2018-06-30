@@ -1,39 +1,39 @@
-## JSP和Servlet
+## JSP 和 Servlet
 
 ### 容器
 
 #### 什么是容器
 
-由于servlet没有main()方法，它们会受控于另一个Java应用，这个Java应用就是容器。当Web服务器得到指向servlet请求时，并不将请求交给servlet，而是将请求交给容器，由容器调用该servlet的方法，如doGet()。
+由于 servlet 没有 main() 方法，它们会受控于另一个 Java 应用，这个 Java 应用就是容器。当 Web 服务器得到指向 servlet 请求时，并不将请求交给 servlet，而是将请求交给容器，由容器调用该 servlet 的方法，如 doGet()。
 
 #### 容器提供了什么
 
 - 通信支持：无需建立套接字、监听端口等
-- 生命周期管理：控制Servlet的生与死
-- 多线程支持：自动的我每个Servlet请求创建一个新的Java线程
-- JSP支持：将JSP翻译为Java
+- 生命周期管理：控制 Servlet 的生与死
+- 多线程支持：自动的我每个 Servlet 请求创建一个新的 Java 线程
+- JSP 支持：将 JSP 翻译为 Java
 
 #### 工作流程
 
-1. 容器拿到对servlet的请求后，创建HttpServletResponse和HttpServletRequest对象
-2. 容器根据请求URL找到对应的servlet，为这个请求分配一个线程并将这两个对象交给servlet
-3. 容器调用servlet的service()方法，根据请求的不同service()方法会调用doGet()或者doPost()
-4. doGet()方法生成动态页面，并将页面写入响应对象
-5. 线程结束，容器将响应对象转化为HTTP相应，并发给客户，删除请求和响应对象
+1. 容器拿到对 servlet 的请求后，创建 HttpServletResponse 和 HttpServletRequest 对象
+2. 容器根据请求 URL 找到对应的 servlet，为这个请求分配一个线程并将这两个对象交给 servlet
+3. 容器调用 servlet 的 service() 方法，根据请求的不同 service() 方法会调用 doGet() 或者 doPost()
+4. doGet() 方法生成动态页面，并将页面写入响应对象
+5. 线程结束，容器将响应对象转化为 HTTP 相应，并发给客户，删除请求和响应对象
 
 ### Servlet
 
-#### Servlet是什么
+#### Servlet 是什么
 
-Servlet其实就是一个接口，定义了五个方法。
+Servlet 其实就是一个接口，定义了五个方法。
 
 ![](https://pic2.zhimg.com/80/v2-85bf84640fbc6b6e195b9c5b513b918f_hd.jpg)
 
 #### 生命周期
 
-- init()：servlet实例创建后，在提供服务（调用doGet()等方法之前）需要执行init()方法
-- service()：第一个请求到来时，容器分配新的线程，调用service()
-- doGet()或者doPost()：service方法根据请求的方式来调用
+- init()：servlet 实例创建后，在提供服务（调用 doGet() 等方法之前）需要执行 init() 方法
+- service()：第一个请求到来时，容器分配新的线程，调用 service()
+- doGet() 或者 doPost()：service 方法根据请求的方式来调用
 
 每一个请求都在一个单独的线程中运行。
 
@@ -43,7 +43,7 @@ Servlet其实就是一个接口，定义了五个方法。
 public interface ServletConfig {
     String getServletName();			   // 不常用
     
-    ServletContext getServletContext();     // 访问ServletContext
+    ServletContext getServletContext();     // 访问 ServletContext
     
     String getInitParameter(String var1);	// 得到初始化参数
     
@@ -51,7 +51,7 @@ public interface ServletConfig {
 }
 ```
 
-**每个servlet都有一个ServletConfig对象**，用于向servlet传递部署信息、初始化参数（部署描述文件中配置）、访问ServletContext等。
+**每个 servlet 都有一个 ServletConfig 对象**，用于向 servlet 传递部署信息、初始化参数（部署描述文件中配置）、访问 ServletContext 等。
 
 ```xml
 <servlet>
@@ -65,7 +65,7 @@ public interface ServletConfig {
 </servlet>
 ```
 
-在Servlet代码中可以使用ServletConfig来获取参数：
+在 Servlet 代码中可以使用 ServletConfig 来获取参数：
 
 ```java
 getServletConfig().getInitParameter("ParamName");
@@ -73,7 +73,7 @@ getServletConfig().getInitParameter("ParamName");
 
 #### ServletContxt
 
-**每个Web应用对应一个ServletContext**，用于访问Web应用参数（部署描述文件中配置）。
+**每个 Web 应用对应一个 ServletContext**，用于访问 Web 应用参数（部署描述文件中配置）。
 
 ```xml
 <context-param>
@@ -82,21 +82,21 @@ getServletConfig().getInitParameter("ParamName");
 </context-param>
 ```
 
-上下文参数利用ServletContext获取：
+上下文参数利用 ServletContext 获取：
 
 ```java
 getServletContext().getInitParameter("ParamName");
 ```
 
-上下文参数对于整个Web应用可用。
+上下文参数对于整个 Web 应用可用。
 
 ### 请求和响应
 
-容器得到对Servlet的请求时，会创建HttpServletResponse和HttpServletRequest对象，分别代表请求和响应。并将这两个对象传递个Servlet。HttpServletResponse和HttpServletRequest是两个接口，由容器来实现。
+容器得到对 Servlet 的请求时，会创建 HttpServletResponse 和 HttpServletRequest 对象，分别代表请求和响应。并将这两个对象传递个 Servlet。HttpServletResponse 和 HttpServletRequest 是两个接口，由容器来实现。
 
 #### HttpServletRequest
 
-HttpServletRequest中的方法与HTTP有关，用于获取请求信息。常用方法：
+HttpServletRequest 中的方法与 HTTP 有关，用于获取请求信息。常用方法：
 
 ```java
 String getContextPath();
@@ -122,53 +122,53 @@ void sendError(int Code);
 
 **重定向**（sendRedirect）让浏览器完成工作：将请求重
 
-定向到其他URL，浏览器显示的URL会变
+定向到其他 URL，浏览器显示的 URL 会变
 
-**请求分派**在服务器端完成工作，要求服务器上的某个对象来处理请求。浏览器上的URL不变。
+**请求分派**在服务器端完成工作，要求服务器上的某个对象来处理请求。浏览器上的 URL 不变。
 
 ```java
 RequestDispatcher view = request.getRequestDispathcer("some.jsp");
 view.forward(request, response);
 ```
 
-#### GET和POST
+#### GET 和 POST
 
-- POST有一个消息体，GET只有请求头
-- GET幂等（还有PUT、HEAD)，POST不幂等
+- POST 有一个消息体，GET 只有请求头
+- GET 幂等（还有 PUT、HEAD)，POST 不幂等
 
 #### 线程安全
 
-- 上下文属性非线程安全（对上下文使用synchronized）
-- HttpSession非线程安全（对HttpSession使用synchronized）
-- SingleThreadModel：用来保护实例变量，**保证不会在该servlet的服务方法中并发执行两个线程**。（已被废弃）
-- 带来了并发请求的问题：多个请求时servlet如何处理，排队/通过一个池发送请求。选择池的话servlet无法保证单例
+- 上下文属性非线程安全（对上下文使用 synchronized）
+- HttpSession 非线程安全（对 HttpSession 使用 synchronized）
+- SingleThreadModel：用来保护实例变量，**保证不会在该 servlet 的服务方法中并发执行两个线程**。（已被废弃）
+- 带来了并发请求的问题：多个请求时 servlet 如何处理，排队 / 通过一个池发送请求。选择池的话 servlet 无法保证单例
 - 请求属性和局部变量是线程安全的
 
 ### 会话
 
-HTTP的连接是无状态的，Web服务器无法区分两次请求是否来自同一个客户。为了保留同一个客户的信息，引入了会话的概念。
+HTTP 的连接是无状态的，Web 服务器无法区分两次请求是否来自同一个客户。为了保留同一个客户的信息，引入了会话的概念。
 
 #### 如何标识
 
-客户的第一次请求，生成一个唯一的ID，并返回给客户，客户在以后的每次请求都中发回这个会话ID
+客户的第一次请求，生成一个唯一的 ID，并返回给客户，客户在以后的每次请求都中发回这个会话 ID
 
 #### 如何实现
 
-cookies，发送cookie/从请求得到会话ID都由容器进行，只需要
+cookies，发送 cookie/ 从请求得到会话 ID 都由容器进行，只需要
 
 ```java
 HttpSession session = request.getSession();
 ```
 
-#### 判断会话已经存在/刚刚创建
+#### 判断会话已经存在 / 刚刚创建
 
 `session.isNew()`
 
-#### 不接受cookies的处理办法：URL重写
+#### 不接受 cookies 的处理办法：URL 重写
 
-如果客户端不接受cookie，可以利用URL重写来完成会话的功能，将请求的URL加上一个标识ID，如`http://www.baidu.com;JSESSIONID=123456`。
+如果客户端不接受 cookie，可以利用 URL 重写来完成会话的功能，将请求的 URL 加上一个标识 ID，如 `http://www.baidu.com;JSESSIONID=123456`。
 
-对于Servlet来说，URL重写需要用`response.encodeURL(\'/BeerTest.do\')`来实现，容器自己判断cookies是否可用，不可用利用URL重写来完成功能。
+对于 Servlet 来说，URL 重写需要用 `response.encodeURL(\'/BeerTest.do\')` 来实现，容器自己判断 cookies 是否可用，不可用利用 URL 重写来完成功能。
 
 #### 删除会话
 
@@ -182,35 +182,35 @@ HttpSession session = request.getSession();
 </session-config>
 ```
 
-利用Servlet来进行配置：
+利用 Servlet 来进行配置：
 
 ```java
 session.setMaxInactiveInterval(20 * 60);
 ```
 
-需要注意配置文件中的单位为分钟，Servlet中的为秒。
+需要注意配置文件中的单位为分钟，Servlet 中的为秒。
 
 ### JSP
 
-**JSP最终会被容器翻译为一个Servlet。**
+**JSP 最终会被容器翻译为一个 Servlet。**
 
-#### 对应的servlet方法
+#### 对应的 servlet 方法
 
-- **jspinit()**：由init方法调用
-- **JSPDestroy()**：由servlet的destroy方法调用
-- **_jspService()**：由service()方法调用，JSP中写的Java代码会放在其中，无法覆盖
+- **jspinit()**：由 init 方法调用
+- **JSPDestroy()**：由 servlet 的 destroy 方法调用
+- **_jspService()**：由 service() 方法调用，JSP 中写的 Java 代码会放在其中，无法覆盖
 
-#### JSP中的元素
+#### JSP 中的元素
 
-- **scriptlet**：即放在\<%\...%\>标记中的java代码
-- **指令**：共有三个，taglib、page和include \<%@ page \...%\>
+- **scriptlet**：即放在 \<%\...%\> 标记中的 java 代码
+- **指令**：共有三个，taglib、page 和 include \<%@ page \...%\>
 - **声明**：<% int i = 0; %\> 声明类变量：\<!% int i = 0; %\>
-- **Java表达式**：<%= i %\> 表达式会被作为out.print()的参数，所以不加分号
-- **EL表达式**
+- **Java 表达式**：<%= i %\> 表达式会被作为 out.print() 的参数，所以不加分号
+- **EL 表达式**
 - **动作：**<jsp:include ....>
 - **注释：**<%\--JSP\--%\>
 
-#### JSP中的隐式对象
+#### JSP 中的隐式对象
 
 - **out**
 - **request**：HttpServletRequest
@@ -219,12 +219,12 @@ session.setMaxInactiveInterval(20 * 60);
 - **application**：ServletContext
 - **config**：ServletConfig
 - **exception**
-- **pageContext**：页面作用域，封装了其他隐式对象，所以如果提供一个pageContext引用就可以利用这个引用得到其他作用域的属性
+- **pageContext**：页面作用域，封装了其他隐式对象，所以如果提供一个 pageContext 引用就可以利用这个引用得到其他作用域的属性
 - **page**
 
 ### EL
 
-EL是表达式语言（Expression Language）的简写，EL的出现是为了将Java代码从JSP中驱逐出去。
+EL 是表达式语言（Expression Language）的简写，EL 的出现是为了将 Java 代码从 JSP 中驱逐出去。
 
 #### 隐式对象
 
@@ -259,16 +259,16 @@ password is : ${param.password}
 
 ### JSTL
 
-JSTL（JSP标准标记库，JSP Standard Tag Library）打包了一组常用的定制标记。
+JSTL（JSP 标准标记库，JSP Standard Tag Library）打包了一组常用的定制标记。
 
 ### 过滤器
 
-过滤器可以在请求被servlet处理之前进行处理。
+过滤器可以在请求被 servlet 处理之前进行处理。
 
 **生命周期**
 
-- init()：在init方法中完成所有初始化任务。
-- doFilter()：真正的处理在这个方法中完成。有三个参数：ServletRequest、ServletResponse和FilterChain。
+- init()：在 init 方法中完成所有初始化任务。
+- doFilter()：真正的处理在这个方法中完成。有三个参数：ServletRequest、ServletResponse 和 FilterChain。
 - destroy()：完成销毁工作。
 
 **声明过滤器**
@@ -287,7 +287,7 @@ JSTL（JSP标准标记库，JSP Standard Tag Library）打包了一组常用的�
 **声明对应的映射**
 
 ```xml
-<!--声明URL模式的过滤器映射-->
+<!-- 声明 URL 模式的过滤器映射 -->
 <filter-mapping>
 	<filter-name>BeerRequest</filter-name>
     <url-pattern>*.do</url-pattern>

@@ -1,10 +1,10 @@
-# 搭建Spring MVC
+# 搭建 Spring MVC
 
-### 1. 配置DispatcherServlet
+### 1. 配置 DispatcherServlet
 
-DispatcherServlet是Spring MVC的核心，所有的请求第一站都是DispatcherServlet。
+DispatcherServlet 是 Spring MVC 的核心，所有的请求第一站都是 DispatcherServlet。
 
-在Spring MVC中需要配置DispatcherServlet只需要扩展`AbstractAnnotationConfigDispatcherServletInitializer`类即可。扩展了该类的子类会自动配置DispatcherServlet和Spring应用上下文。
+在 Spring MVC 中需要配置 DispatcherServlet 只需要扩展 `AbstractAnnotationConfigDispatcherServletInitializer` 类即可。扩展了该类的子类会自动配置 DispatcherServlet 和 Spring 应用上下文。
 
 ```java
 public class SpittrWebAppInitializer  extends AbstractAnnotationConfigDispatcherServletInitializer{
@@ -26,4 +26,4 @@ public class SpittrWebAppInitializer  extends AbstractAnnotationConfigDispatcher
 }
 ```
 
-扩展这个类需要重写三个方法。第一个方法是`getServletMappings`，它会将一个或多个路径映射到DispatcherServlet上。如果映射的是“/”的话，表明是默认的Servlet，会处理所有请求。
+扩展这个类需要重写三个方法。第一个方法是 `getServletMappings`，它会将一个或多个路径映射到 DispatcherServlet 上。如果映射的是“ / ”的话，表明是默认的 Servlet，会处理所有请求。

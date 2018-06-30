@@ -1,6 +1,6 @@
 ## Hibernate
 
-对每个实体类配置对应的.hbm.xml文件：
+对每个实体类配置对应的 .hbm.xml 文件：
 
 ```xml
 <?xml version="1.0"?>
@@ -20,7 +20,7 @@
 </hibernate-mapping>
 ```
 
-对整个Hibernate进行配置：
+对整个 Hibernate 进行配置：
 
 ```xml
 <?xml version='1.0' encoding='utf-8'?>
@@ -62,7 +62,7 @@ sf.close();
 
 **获取**
 
-Hibernate根据id获取对象。 除了id之外，还需要传递一个类对象，用于确定获取哪个类型的对象。
+Hibernate 根据 id 获取对象。 除了 id 之外，还需要传递一个类对象，用于确定获取哪个类型的对象。
 
 ```java
 Product p =(Product) s.get(Product.class, 6);
