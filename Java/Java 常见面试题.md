@@ -1,5 +1,57 @@
 # Java 常见面试题及答案
 
+## 一、Java基础
+
+## 二、并发
+
+**synchronized**：
+
+**volatile**
+
+乐观锁/悲观锁
+
+什么是线程安全
+
+## 三、JVM
+
+**垃圾回收算法**
+
+**CMS和G1**
+
+## 四、数据库
+
+**索引**：聚集索引和非聚集索引；什么时候会失效；使用索引的场景
+
+**引擎**：InnoDB和MyISAM分别什么时候使用
+
+隔离级别
+
+B树和B+树
+
+
+
+## 四、计算机基础
+
+数据结构与算法
+
+**排序类算法**：快排！
+
+**红黑树**
+
+## 框架
+
+**Spring**：IOC和AOP，Spring MVC
+
+Mybatis、Hibernate
+
+## 其他
+
+TCP三次握手
+
+HTTP 状态码
+
+get和post区别
+
 ## 1. StringBuilder 和 StringBuffer
 
 **为何要用到 StringBuilder 或 StringBuffer**
@@ -87,3 +139,50 @@ Xms 指定 Java 虚拟机初始化时占用的内存大小，此项一般没有�
 2. 对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。    
 3. 对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。
 
+## 6. 什么是多态？如何体现多态？
+
+正如字面上的意思，多态就是**事物在运行过程中存在多种的状态。**多态的体现需要有三个前提：
+
+1. 要有继承关系 （或者实现接口）
+2. 子类要重写父类的方法
+3. 父类引用指向子类
+
+例子：
+
+```java
+class Person {
+    void run() {
+        System.out.println("人在跑");
+    }
+}
+
+class Student extends Person {
+    @Override
+    void run() {
+        System.out.println("学生在奔跑");
+    }
+}
+
+public static void main(String[] args) {
+    Person p = new Student();
+    p.run();    // 学生在奔跑
+}
+```
+
+父类引用指向子类对象，调用方法时会调用子类的实现，而不是父类的实现，这就叫多态。 
+
+注意上述的例子是**方法重写**（override），而**方法重载**（overload）并不体现多态。
+
+## 为什么重写equals方法必须重写hashcode方法
+
+默认的hashCode方法会利用对象的地址来计算hashcode值，不同对象的hashcode值是不一样的。 
+
+```java
+public boolean equals(Object obj) {
+    return (this == obj);
+}
+```
+
+可以看出Object类中的equals方法与“==”是等价的，也就是说判断对象的地址是否相等。Object类中的equals方法进行的是基于内存地址的比较。 
+
+一般对于存放到Set集合或者Map中键值对的元素，需要按需要重写hashCode与equals方法，以保证唯一性。
