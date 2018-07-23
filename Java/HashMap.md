@@ -137,7 +137,7 @@ JDK 1.8 对此过程进行了优化。JDK 1.7 版本中，每次扩容都需要�
 
 每次扩容我们都将HashMap的容量变为原来的2倍，所以，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。元素在重新计算hash之后，因为n变为2倍，那么n-1的mask范围在高位多1bit(红色)，因此新的index就会发生这样的变化：
 
-![](E:\Notes\Java\assets/a285d9b2da279a18b052fe5eed69afe9_r.jpg)
+![](./assets/a285d9b2da279a18b052fe5eed69afe9_r.jpg)
 
 扩容前HashMap容量为16，两个元素的Hash值均为5。扩容后HashMap容量为32，第一个元素Hash值为5，第二个元素Hash值为21，移动了16位。
 
