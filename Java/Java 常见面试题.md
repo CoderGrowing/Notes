@@ -2,6 +2,10 @@
 
 ## 一、Java 基础
 
+equals 和 ==
+
+NIO、BIO、AIO
+
 ## 二、并发
 
 **synchronized**：
@@ -11,6 +15,8 @@
 乐观锁 / 悲观锁
 
 什么是线程安全
+
+CAS AQS
 
 ## 三、JVM
 
@@ -27,8 +33,6 @@
 隔离级别
 
 B 树和 B+ 树
-
-
 
 ## 四、计算机基础
 
@@ -186,3 +190,72 @@ public boolean equals(Object obj) {
 可以看出 Object 类中的 equals 方法与“ == ”是等价的，也就是说判断对象的地址是否相等。Object 类中的 equals 方法进行的是基于内存地址的比较。 
 
 一般对于存放到 Set 集合或者 Map 中键值对的元素，需要按需要重写 hashCode 与 equals 方法，以保证唯一性。
+
+## equals 和 ==
+
+**==**
+
+> 关系操作符生成的是一个boolean结果，它们计算的是操作数的值之间的关系
+>
+> 《Java 编程思想》
+
+毫无疑问 == 就是一个关系操作符，所以使用 == 计算的是操作数的值之间的关系。
+
+```java
+3 == 3; // true
+"string" == "string";  // false
+```
+
+对于第一种情况，即基本类型，== 直接计算两个操作数之间的关系，所以返回 true。而对于第二种情况，String 并不是基本类型，s1 存储的不是值，而是s1 所关联的对象在内存中的地址。所以 == 返回 false。
+
+**equals**
+
+```java
+// java.lang.Object
+
+public boolean equals(Object obj) {
+    return this == obj;
+}
+```
+
+由 Object.java 的源代码可以看到equals方法是用来比较两个对象的引用是否相等，即是否指向同一个对象。 但大多数的类都会重写 Object 提供的 equals 方法，String 类也不例外，下面我们来看看 String 类的 equals 方法实现：
+
+```java
+public boolean equals(Object anObject) {
+    if (this == anObject) {
+        return true;
+    }
+    if (anObject instanceof String) {
+        String anotherString = (String)anObject;
+        int n = value.length;
+        if (n == anotherString.value.length) {
+            char v1[] = value;
+            char v2[] = anotherString.value;
+            int i = 0;
+            while (n-- != 0) {
+                if (v1[i] != v2[i])
+                    return false;
+                i++;
+            }
+            return true;
+        }
+    }
+    return false;
+    }
+```
+
+重写后的 equals 方法比较的是字符串中每个字符是否相等。
+
+**总结**
+
+对于==，如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；如果作用于引用类型的变量，则比较的是所指向的对象的地址。
+
+对于equals方法，如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；重写过的 equals 方法比较的一般是对象的值。
+
+## CAS
+
+CAS（Compare and swap）比较和替换，是乐观锁的一种典型实现。当多个线程尝试使用 CAS 同时更新同一个变量时，只有其中一个线程能更新变量的值，而其它线程都失败，失败的线程并不会被挂起，而是被告知这次竞争中失败，并可以再次尝试。 
+
+ABA 问题，CAS 会导致 ABA 问题
+
+ 
