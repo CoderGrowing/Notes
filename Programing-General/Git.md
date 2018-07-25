@@ -8,13 +8,13 @@
 
 ![](assets/18333fig0105-tn.png)
 
-如上图所示，虚线部分表示文件未做更改，git只是保存了快照的链接。
+如上图所示，虚线部分表示文件未做更改，git 只是保存了快照的链接。
 
 ### 文件的三种状态和三个工作区域
 
-被git管理的文件有三种状态：已提交（commited）、已修改（modified）和已暂存（staged）。
+被 git 管理的文件有三种状态：已提交（commited）、已修改（modified）和已暂存（staged）。
 
-文件被修改时，状态变为已修改；使用 `git add modified-file`后，文件状态变为已暂存；使用`git commit -m "modify message"`提交更改后，文件状态变为已提交。
+文件被修改时，状态变为已修改；使用 `git add modified-file` 后，文件状态变为已暂存；使用 `git commit -m "modify message"` 提交更改后，文件状态变为已提交。
 
 
 

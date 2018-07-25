@@ -1,6 +1,6 @@
 # Java 常见面试题及答案
 
-## 一、Java基础
+## 一、Java 基础
 
 ## 二、并发
 
@@ -8,7 +8,7 @@
 
 **volatile**
 
-乐观锁/悲观锁
+乐观锁 / 悲观锁
 
 什么是线程安全
 
@@ -16,17 +16,17 @@
 
 **垃圾回收算法**
 
-**CMS和G1**
+**CMS 和 G1**
 
 ## 四、数据库
 
 **索引**：聚集索引和非聚集索引；什么时候会失效；使用索引的场景
 
-**引擎**：InnoDB和MyISAM分别什么时候使用
+**引擎**：InnoDB 和 MyISAM 分别什么时候使用
 
 隔离级别
 
-B树和B+树
+B 树和 B+ 树
 
 
 
@@ -40,17 +40,17 @@ B树和B+树
 
 ## 框架
 
-**Spring**：IOC和AOP，Spring MVC
+**Spring**：IOC 和 AOP，Spring MVC
 
 Mybatis、Hibernate
 
 ## 其他
 
-TCP三次握手
+TCP 三次握手
 
 HTTP 状态码
 
-get和post区别
+get 和 post 区别
 
 ## 1. StringBuilder 和 StringBuffer
 
@@ -99,9 +99,9 @@ public final class String  implements java.io.Serializable, Comparable<string>, 
 }
 ```
 
-String 在底层是通过 char 字符数组来实现的，value 是被设置为 final 的字符数组。而 value 被设置为 final只是说明 stack 里的这个叫 value 的引用地址不可变 ，但其本身的值是可变的。
+String 在底层是通过 char 字符数组来实现的，value 是被设置为 final 的字符数组。而 value 被设置为 final 只是说明 stack 里的这个叫 value 的引用地址不可变 ，但其本身的值是可变的。
 
-而 String 之所以不可变，是因为 String 的方法里都很小心的没有去动 value 里的元素，没有暴露内部成员字段。 所以**String是不可变的关键都在底层的实现，而不是一个final。** 
+而 String 之所以不可变，是因为 String 的方法里都很小心的没有去动 value 里的元素，没有暴露内部成员字段。 所以**String 是不可变的关键都在底层的实现，而不是一个 final。** 
 
 ### 为何要设置为不可变
 
@@ -133,11 +133,11 @@ Xmx 指定 Java 虚拟机最大可分配内存，超出此内存将会产生 Out
 
 Xms 指定 Java 虚拟机初始化时占用的内存大小，此项一般没有默认值。
 
-## 5. ArrayList和LinkedList的区别？
+## 5. ArrayList 和 LinkedList 的区别？
 
-1. ArrayList是实现了基于**动态数组**的数据结构，LinkedList基于**双向链表**的数据结构。    
-2. 对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。    
-3. 对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。
+1. ArrayList 是实现了基于**动态数组**的数据结构，LinkedList 基于**双向链表**的数据结构。    
+2. 对于随机访问 get 和 set，ArrayList 优于 LinkedList，因为 LinkedList 要移动指针。    
+3. 对于新增和删除操作 add 和 remove，LinedList 比较占优势，因为 ArrayList 要移动数据。
 
 ## 6. 什么是多态？如何体现多态？
 
@@ -152,14 +152,14 @@ Xms 指定 Java 虚拟机初始化时占用的内存大小，此项一般没有�
 ```java
 class Person {
     void run() {
-        System.out.println("人在跑");
+        System.out.println(" 人在跑 ");
     }
 }
 
 class Student extends Person {
     @Override
     void run() {
-        System.out.println("学生在奔跑");
+        System.out.println(" 学生在奔跑 ");
     }
 }
 
@@ -173,9 +173,9 @@ public static void main(String[] args) {
 
 注意上述的例子是**方法重写**（override），而**方法重载**（overload）并不体现多态。
 
-## 为什么重写equals方法必须重写hashcode方法
+## 为什么重写 equals 方法必须重写 hashcode 方法
 
-默认的hashCode方法会利用对象的地址来计算hashcode值，不同对象的hashcode值是不一样的。 
+默认的 hashCode 方法会利用对象的地址来计算 hashcode 值，不同对象的 hashcode 值是不一样的。 
 
 ```java
 public boolean equals(Object obj) {
@@ -183,6 +183,6 @@ public boolean equals(Object obj) {
 }
 ```
 
-可以看出Object类中的equals方法与“==”是等价的，也就是说判断对象的地址是否相等。Object类中的equals方法进行的是基于内存地址的比较。 
+可以看出 Object 类中的 equals 方法与“ == ”是等价的，也就是说判断对象的地址是否相等。Object 类中的 equals 方法进行的是基于内存地址的比较。 
 
-一般对于存放到Set集合或者Map中键值对的元素，需要按需要重写hashCode与equals方法，以保证唯一性。
+一般对于存放到 Set 集合或者 Map 中键值对的元素，需要按需要重写 hashCode 与 equals 方法，以保证唯一性。

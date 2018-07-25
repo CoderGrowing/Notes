@@ -47,9 +47,9 @@ public final class String  implements java.io.Serializable, Comparable<string>, 
 }
 ```
 
-String 在底层是通过 char 字符数组来实现的，value 是被设置为 final 的字符数组。而 value 被设置为 final只是说明 stack 里的这个叫 value 的引用地址不可变 ，但其本身的值是可变的。
+String 在底层是通过 char 字符数组来实现的，value 是被设置为 final 的字符数组。而 value 被设置为 final 只是说明 stack 里的这个叫 value 的引用地址不可变 ，但其本身的值是可变的。
 
-而 String 之所以不可变，是因为 String 的方法里都很小心的没有去动 value 里的元素，没有暴露内部成员字段。 所以**String是不可变的关键都在底层的实现，而不是一个final。** 
+而 String 之所以不可变，是因为 String 的方法里都很小心的没有去动 value 里的元素，没有暴露内部成员字段。 所以**String 是不可变的关键都在底层的实现，而不是一个 final。** 
 
 ### 为何要设置为不可变
 
@@ -81,9 +81,9 @@ Xmx 指定 Java 虚拟机最大可分配内存，超出此内存将会产生 Out
 
 Xms 指定 Java 虚拟机初始化时占用的内存大小，此项一般没有默认值。
 
-## 5. ArrayList和LinkedList的区别？
+## 5. ArrayList 和 LinkedList 的区别？
 
-1. ArrayList是实现了基于**动态数组**的数据结构，LinkedList基于**双向链表**的数据结构。    
-2. 对于随机访问get和set，ArrayList优于LinkedList，因为LinkedList要移动指针。    
-3. 对于新增和删除操作add和remove，LinedList比较占优势，因为ArrayList要移动数据。
+1. ArrayList 是实现了基于**动态数组**的数据结构，LinkedList 基于**双向链表**的数据结构。    
+2. 对于随机访问 get 和 set，ArrayList 优于 LinkedList，因为 LinkedList 要移动指针。    
+3. 对于新增和删除操作 add 和 remove，LinedList 比较占优势，因为 ArrayList 要移动数据。
 
